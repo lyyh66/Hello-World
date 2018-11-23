@@ -30,7 +30,7 @@ output reg [7:0] read_data;
 
 
 reg [7:0] counter1='d8+1;
-reg [7:0] counter1='d8;
+reg [7:0] counter2='d8;
 reg  sig_write=1'b1;
 
 reg data=1'b0;
@@ -55,7 +55,7 @@ end
 always @(posedge spi_clk && ~spi_cs)
 begin
 
-if (counter1>='d0 && sig_write=='d1 && ~data)
+if (counter1>='d0 && sig_write=='b1 && ~data)
 
 begin
 
@@ -81,7 +81,7 @@ else if (counter1==0)
 
 begin
 coounter1='d8+1;
-data=1'd1;
+data=1'b1;
 sig_write=sig_R0W1?'b1:'b0;
 end
 end
@@ -99,7 +99,7 @@ always @(negedge spi_clk && ~spi_cs && sig_write=='b0 && ~sig_R0W1)
 begin 
 if (counter2>='d0)
 begin
-read_data[cpunter2]<=spi_mosi;
+read_data[cpunter2]<=spi_miso;
 
 if (counter2=='d0)
 
