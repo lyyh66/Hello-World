@@ -1,0 +1,116 @@
+`timescale 1ns/1ps
+
+
+module
+test_spi(
+  spi_clk,
+  spi_cs,
+  spi_data,
+  spi_mode,
+  sig_R0W1,
+  spi_mosi,
+  spi_miso,
+  read_data,
+  reset
+);
+
+input spi_clk;
+input spi_cs;
+input reset;
+output reg spi_mosi;
+input spi_miso;
+input sig_R0W1;
+
+input[7:0] spi_data;
+input[7:0] spi_mode;
+
+
+output reg [7:0] read_data;
+
+
+
+reg [7:0] counter1='d8+1;
+reg [7:0] counter2='d8;
+reg  sig_write=1'b1;
+
+reg data=1'b0;
+reg wstopB=1'b1;
+
+
+
+always @(reset)
+
+begin
+    data=1'b0;
+    wstopB=1'b1;
+    counter1='d8+'d1;
+    counter2='d8;
+    sig_write=1'b1;
+
+    read_data='d0;
+
+end
+
+
+always @(posedge spi_clk && ~spi_cs)
+begin
+
+if (counter1>='d0 && sig_write=='b1 && ~data)
+
+begin
+
+if (counter1 !=0)
+
+begin
+    spi_mosi=spi_mode[counter1-1];
+    counter1=counter1-'d1;
+    if ((counter1)=='d0 && ~sig_R0W1)
+
+    begin
+        wstopB=1'b1;
+    end
+
+else
+
+    begin
+    wstopB=1'b0;
+    end
+end
+
+else if (counter1==0)
+
+begin
+    counter1='d8+1;
+    data=1'b1;
+    sig_write=sig_R0W1?'b1:'b0;
+end
+end
+
+else if (counter2>='d0 &&  sig_write=='b1 && data && sig_R0W1)
+
+begin
+    spi_mosi=spi_data[counter2];
+    counter2=(counter2!='d0)?(counter2-'d1):'d8-1;
+end
+end
+
+always @(negedge spi_clk && ~spi_cs && sig_write=='b0 && ~sig_R0W1)
+
+begin 
+if (counter2>='d0)
+begin
+read_data[counter2]<=spi_miso;
+
+if (counter2=='d0)
+
+begin
+    counter2='d8-1;
+    data=1'b0;
+    sig_write='b1;
+
+end
+counter2=counter2-'d1;
+end
+end
+
+endmodule

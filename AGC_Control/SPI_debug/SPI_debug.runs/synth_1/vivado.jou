@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2016.3 (64-bit)
+# SW Build 1682563 on Mon Oct 10 19:07:27 MDT 2016
+# IP Build 1681267 on Mon Oct 10 21:28:31 MDT 2016
+# Start of session at: Sat Nov 24 16:11:03 2018
+# Process ID: 11692
+# Current directory: D:/project/SPI_debug/SPI_debug.runs/synth_1
+# Command line: vivado.exe -log test_spi.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source test_spi.tcl
+# Log file: D:/project/SPI_debug/SPI_debug.runs/synth_1/test_spi.vds
+# Journal file: D:/project/SPI_debug/SPI_debug.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source test_spi.tcl -notrace
