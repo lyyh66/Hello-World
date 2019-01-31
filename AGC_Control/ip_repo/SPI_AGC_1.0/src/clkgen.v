@@ -29,34 +29,43 @@
     (
         input clk,
         input rst,
-        output reg clk_out
+        output reg clk_out=‘b0,
+        input start,
+        output reg csgo='b0,
+        inout stop
         );
     
-    reg [WIDTH:0]counter;
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            // reset
-            counter <= 0;
-        end
-        else if (counter == N-1) begin
-            counter <= 0;
-        end
-        else begin
-            counter <= counter + 1;
-        end
-    end
+        reg [WIDTH:0]counter='d0;
+    always @(posedge clk )
+        begin
+            case({rst,stop})
+            'b00:
+                begin
+                    counter<=counter+1;
+                    
+                    if (counter ==N-1)
+                        begin 
+                            if(clk_out==1'b1 && counter == 1'b1 && start)
+                            begin 
+                                csgo<=1'b1;
+                            end
+                            counter<=0;
+                            clk_out<= !clk_out;
+                        end
     
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            // reset
-            clk_out <= 0;
-        end
-        else if (counter == N-1) begin
-            clk_out <= !clk_out;
-        end
-    end
-    
- 
+         end
+                'b10:
+                    begin
+                        clk_out<='b0;
+                        csgo<='b0;
+                        counter<='d0;
+                    end
+                
+                default:
+                    begin
+                        csgo='b0;
+                        clk_out='b0;
+                    end 
 
     
 endmodule
