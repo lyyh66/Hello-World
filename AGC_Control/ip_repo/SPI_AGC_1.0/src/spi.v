@@ -5,37 +5,52 @@ module
 test_spi(
   spi_clk,
   spi_cs,
-  spi_data,
+  spi_dataA,
+  spi_dataB,
+  
   spi_mode,
-  sig_R0W1,
+  sig_R1W0,
+  spi_stop,
+  spi_read,
+  
+  control_mode.
   spi_mosi,
   spi_miso,
+  
   read_data,
-  reset
+  reg_reset,
+  channel
 );
 
 input spi_clk;
 input spi_cs;
-input reset;
+input reg_reset;
+  input channel;
+  
 output reg spi_mosi;
 input spi_miso;
-input sig_R0W1;
+input sig_read;
 
-input[7:0] spi_data;
+  input [1:0]control_mode;
+  input sig_R1W0;
+  
+  input[7:0] spi_dataA;
+  input[7:0] spi_dataB;
 input[7:0] spi_mode;
 
 
 output reg [7:0] read_data;
 
+oytput reg spi_stop=1'b0;
 
+reg [7:0] counter1;
+reg [7:0] counter2;
+reg  sig_read;
 
-reg [7:0] counter1='d8+1;
-reg [7:0] counter2='d8;
-reg  sig_write=1'b1;
-
+  
 reg data=1'b0;
-reg wstopB=1'b1;
 
+//input here
 
 
 always @(reset)
