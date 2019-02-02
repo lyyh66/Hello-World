@@ -19,5 +19,9 @@ output reg A0_data,
 inout B5_spi_sdio,
 output reg B4_sclk,
 
+  output reg B3_csb_gs1,
+  output reg B2_fab_gs0,
+  output reg B1_clkb,
+  output reg B0_datb
 
-)
+);
