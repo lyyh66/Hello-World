@@ -66,6 +66,7 @@
                         csgo='b0;
                         clk_out='b0;
                     end 
-
+            endcase
+        end
     
 endmodule
