@@ -12,7 +12,7 @@ output reg A4,
 output reg A5,
 output reg A3_sca,
 output reg A2_faa,
-output reg_A1clka,
+output reg_A1_clka,
 output reg A0_data,
 
 inout B5_spi_sdio,
@@ -50,7 +50,7 @@ wire channel;
 
 assign control_mode_8363=control_mode;
 
-always @(posedg main_clk)
+    always @(posedge main_clk)
 begin
 
 
