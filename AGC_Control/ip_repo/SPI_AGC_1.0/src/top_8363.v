@@ -87,8 +87,8 @@ endcase
 end
 
 IOBUF #(
-    .DRIVE(12),
-    .IBUF_LOW_PWR("TRUE"),
+    .DRIVE(12), // specify the output drive strnth
+    .IBUF_LOW_PWR("TRUE"), 
     .IOSTANDARD("DEFAULT"),
     .SLEW("SLOW")
     ) IOBUF_inst (
@@ -120,7 +120,7 @@ IOBUF #(
  .reg_reset(reg_reset),
  .sig_read(ioControl),
  .spi_stop(spi_stop),
- .control_mode(control_mode)
+     .control_mode(control_mode) // this is for determine the MOSI multifuction pin output
  );
  
  
