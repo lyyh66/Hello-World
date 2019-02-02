@@ -152,9 +152,31 @@ IOBUF #(
  begin
  
  A3_csa<=~spi_csa;
+ B3_csb_gs1<=~spi_csB;
+ B4_sclk<=spi_clk;
  
-    
-    
+ end
+ 
+ 'b10:
+ 
+ begin:
+ 
+ A0_data<=spi_dataA[0];
+ A1_clka<=spi_dataA[1];
+ A2_faa<=spi_dataA[2];
+ A3_csa<=spi_dataA[3];
+ A4<=spi_dataA[4];
+ A5<=<=spi_dataA[5];
+ 
+ B0_datb<=spi_dataB[0];
+ B1_clkb<=spi_dataB[1];
+ B2_fab_gs0<=spi_dataB[2];
+ B3_csb_gs1<=spi_dataB[3];   
+B4_sclk<=spi_dataB[4];
+end
+endcase
+end
+endmodule
 
 
 
