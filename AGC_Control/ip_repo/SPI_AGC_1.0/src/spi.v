@@ -41,7 +41,7 @@ input[7:0] spi_mode;
 
 output reg [7:0] read_data;
 
-oytput reg spi_stop=1'b0;
+output reg spi_stop=1'b0;
 
 reg [7:0] counter1;
 reg [7:0] counter2;
