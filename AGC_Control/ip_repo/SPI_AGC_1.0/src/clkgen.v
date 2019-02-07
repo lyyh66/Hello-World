@@ -29,7 +29,7 @@
     (
         input clk,
         input rst,
-        output reg clk_out=‘b0,
+        output reg clk_out='b0,
         input start,
         output reg csgo='b0,
         inout stop
