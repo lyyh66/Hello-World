@@ -1,3 +1,23 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 2019/02/07 15:45:27
+// Design Name: 
+// Module Name: top_8363
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
 module top_8363 #
 ()
 (
@@ -10,9 +30,9 @@ input main_clk,
 input start,
 output reg A4,
 output reg A5,
-output reg A3_sca,
+output reg A3_csa,
 output reg A2_faa,
-output reg_A1_clka,
+output reg A1_clka,
 output reg A0_data,
 
 inout B5_spi_sdio,
@@ -45,7 +65,7 @@ reg spi_csB;
 
 reg spi_sdio;
 
-wire reg_reset;
+
 wire channel;
 
 assign control_mode_8363=control_mode;
@@ -64,16 +84,16 @@ begin
 
 case (channel)
 'b0:
-spi_csA<=1'b1;
+            spi_csA<=1'b1;
 'b1:
-spi_csB<=1'b1;
+            spi_csB<=1'b1;
 endcase
 end
 
-else if (spi_stop==1'b1)
+else if(spi_stop==1'b1)
 begin
-spi_csA<=1'b0;
-spi_csB<=1'b0;
+            spi_csA<=1'b0;
+            spi_csB<=1'b0;
 end
 end
 
@@ -111,7 +131,7 @@ IOBUF #(
  .spi_clk(spi_clk),
  .spi_cs(spi_csA),
  .channel(channel),
- .spi_mode（spi_mode）,
+ .spi_mode(spi_mode),
  .sig_R1W0(sig_R1W0),
  .spi_mosi(spi_mosi),
  .spi_miso(spi_miso),
@@ -151,7 +171,7 @@ IOBUF #(
  
  begin
  
- A3_csa<=~spi_csa;
+ A3_csa<=~spi_csA;
  B3_csb_gs1<=~spi_csB;
  B4_sclk<=spi_clk;
  
@@ -159,14 +179,14 @@ IOBUF #(
  
  'b10:
  
- begin:
+ begin
  
  A0_data<=spi_dataA[0];
  A1_clka<=spi_dataA[1];
  A2_faa<=spi_dataA[2];
  A3_csa<=spi_dataA[3];
  A4<=spi_dataA[4];
- A5<=<=spi_dataA[5];
+ A5<=spi_dataA[5];
  
  B0_datb<=spi_dataB[0];
  B1_clkb<=spi_dataB[1];
@@ -177,8 +197,3 @@ end
 endcase
 end
 endmodule
-
-
-
-
-
