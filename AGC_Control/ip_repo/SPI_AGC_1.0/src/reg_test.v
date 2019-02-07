@@ -1,7 +1,7 @@
 module reg_test #
   (
   parameter integer C_S_AXI_DATA_WIDTH =32,
-  parameter integer C_S_ADDR_WIDTH =5,
+  parameter integer C_S_ADDR_WIDTH =5
     
   
   )
@@ -15,7 +15,7 @@ module reg_test #
     input [7:0] read_data,
     input main_clk,
     
-    output reg reg_reset'b0,
+    output reg reg_reset='b0,
     output reg channel,
     input test_start
   
@@ -29,9 +29,9 @@ module reg_test #
   
   
   
-  alwaays @(posedge main_clk)
+  always @(posedge main_clk)
   begin
-    control_mode[1:0]<=spi_reg0[3:2];
+    control_mode[1:0]<=slv_reg0[3:2];
     reg_reset<=slv_reg0[4];
     channel<=slv_reg0[5];
     spi_mode[7:0]<=slv_reg1[7:0];
@@ -45,3 +45,4 @@ module reg_test #
   end
   
   endmodule
+
